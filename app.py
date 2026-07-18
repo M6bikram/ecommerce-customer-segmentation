@@ -1,6 +1,6 @@
 """
-E-Commerce Customer Segmentation - Main Streamlit Application
-Run with: streamlit run app.py
+E-Commerce Customer Segmentation - Main Streamlit Application by Bikram Mondal
+
 """
 
 import streamlit as st
@@ -21,7 +21,7 @@ from reports import generate_segment_summary, generate_text_report, export_resul
 
 st.set_page_config(page_title="E-Commerce Customer Segmentation", layout="wide")
 
-st.title("🛒 E-Commerce Customer Segmentation Dashboard")
+st.title("E-Commerce Customer Segmentation Dashboard by Bikram Mondal")
 st.caption("Unsupervised ML project: K-Means clustering on customer purchasing behavior")
 
 # ---------------------------------------------------------------
@@ -30,8 +30,8 @@ st.caption("Unsupervised ML project: K-Means clustering on customer purchasing b
 st.sidebar.header("1. Dataset Upload")
 uploaded_file = st.sidebar.file_uploader("Upload customer CSV", type=["csv"])
 dataset_choice = st.sidebar.radio(
-    "Or use a bundled dataset",
-    ["Kaggle: Mall Customer Segmentation (real, 200 rows)", "Synthetic sample (400 rows)"],
+    "Sample Dataset",
+    ["Kaggle: Mall Customer Segmentation (real, 200 rows)", "Sample Customer Dataset (400 rows)"],
     index=0,
 )
 
@@ -41,7 +41,7 @@ elif dataset_choice.startswith("Kaggle"):
     sample_path = os.path.join("datasets", "Mall_Customers.csv")
     raw_df = load_dataset(sample_path)
     st.sidebar.caption(
-        "Source: Kaggle 'Customer Segmentation Tutorial in Python' by vjchoudhary7 — "
+        "Source: Kaggle Customer Segmentation Dataset — "
         "https://www.kaggle.com/datasets/vjchoudhary7/customer-segmentation-tutorial-in-python"
     )
 else:
@@ -58,13 +58,13 @@ else:
 # ---------------------------------------------------------------
 # Screen 2: Customer Overview + Cleaning
 # ---------------------------------------------------------------
-st.header("📋 Customer Overview")
+st.header("📋Customer Overview")
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Customers", raw_df.shape[0])
 col2.metric("Columns", raw_df.shape[1])
 col3.metric("Missing Values", int(raw_df.isna().sum().sum()))
 
-with st.expander("View raw dataset"):
+with st.expander("View Original Dataset"):
     st.dataframe(raw_df.head(20))
 
 clean_df = clean_data(raw_df)
@@ -72,12 +72,12 @@ featured_df = engineer_features(clean_df)
 
 with st.expander("View cleaned & feature-engineered dataset"):
     st.dataframe(featured_df.head(20))
-    st.caption("Missing values filled with median/mode. Derived features added where applicable.")
+    st.caption("Missing values filled with median/mode.")
 
 # ---------------------------------------------------------------
 # Screen 3: Exploratory Data Analysis
 # ---------------------------------------------------------------
-st.header("📊 Exploratory Data Analysis")
+st.header("📊Exploratory Data Analysis")
 numeric_cols_all = featured_df.select_dtypes(include="number").columns.tolist()
 numeric_cols_all = [c for c in numeric_cols_all if c != "CustomerID"]
 
@@ -91,7 +91,7 @@ st.header("⚙️ Feature Selection & Clustering Setup")
 
 preferred_pairs = [
     ["Annual Income (k$)", "Spending Score (1-100)"],  # Kaggle Mall Customers dataset
-    ["AnnualIncome_k", "SpendingScore"],                 # synthetic sample dataset
+    ["AnnualIncome_k", "SpendingScore"],                 # sample_customer_dataset
 ]
 default_features = []
 for pair in preferred_pairs:
