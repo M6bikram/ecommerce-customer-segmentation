@@ -85,6 +85,4 @@ You can swap in a real Kaggle dataset — the app only needs at least
 2 numeric columns to work; if your column names differ, just select
 them manually in the "Feature Selection" step.
 
-## Notes for Viva / Submission
-See `VIVA_QUESTIONS_AND_ANSWERS.md` for prepared answers to the 10
-viva questions listed in the project brief.
+
